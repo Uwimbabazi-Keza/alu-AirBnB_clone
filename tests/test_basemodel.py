@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import unittest
-from models.base_model import
+from models.base_model import BaseModel
 
 class testBasemodel(unittest.TestCase):
 """checks every property of an instance"""
