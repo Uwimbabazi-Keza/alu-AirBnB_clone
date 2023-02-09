@@ -12,6 +12,12 @@ import os.path
 from datetime import datetime
 
 
+class HBNBCommand(cmd.Cmd):
+    """
+    Command interpreter for the HBNB project.
+    """
+    prompt = '(hbnb) '
+
     def do_quit(self, args):
         """Quit command to exit the program"""
         print("Goodbye!")
