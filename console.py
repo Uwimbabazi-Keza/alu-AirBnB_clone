@@ -32,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
         """Called when an empty line is entered in response to the prompt"""
         pass
 
-   def create(class_name, *args, **kwargs):
+    def create(class_name, *args, **kwargs):
         if class_name is None:
             print("** class name missing **")
             return
