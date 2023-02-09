@@ -86,7 +86,40 @@ class HBNBCommand(cmd.Cmd):
         """
         args = args.split()
         if len(args) == 0:
-            print("** class name missing **
+            print("** class name missing **")
+            return
+    class_name = args[0]
+    if class_name not in self.classes:
+        print("** class doesn't exist ")
+        return
+    if len(args) == 1:
+        print(" instance id missing ")
+        return
+    instance_id = args[1]
+    file_name = class_name + "." + instance_id + ".json"
+    if not os.path.exists(file_name):
+        print(" no instance found **")
+        return
+    os.remove(file_name)
+
+    def do_all(self, args):
+    """Prints all string representation of all instances based or not on the
+    class name.
+    """
+    args = args.split()
+        if len(args) == 0:
+        instances = [json.loads(open(f, "r").read()) for f in os.listdir() if
+        f.endswith(".json")]
+        print([str(BaseModel(instance)) for instance in instances])
+    else:
+        class_name = args[0]
+    if class_name not in self.classes:
+        print(" class doesn't exist **")
+        return
+    instances = [json.loads(open(f, "r").read()) for f in os.listdir() if
+    f.endswith(".json") and f.startswith(class_name + ".")]
+    print([str(self.classesclass_name) for instance in
+    instances])
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
