@@ -1,6 +1,3 @@
-Stephen
-this is the basemodel code 
-
 #!/usr/bin/python3
 import uuid
 from datetime import datetime
