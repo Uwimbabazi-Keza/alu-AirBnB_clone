@@ -32,75 +32,69 @@ class HBNBCommand(cmd.Cmd):
         """Called when an empty line is entered in response to the prompt"""
         pass
 
-    def do_create(self, args):
-        """Creates a new instance of BaseModel, saves it (to the JSON file)
-        and prints the id.
-        """
-        args = args.split()
-        if len(args) == 0:
+   def create(class_name, *args, **kwargs):
+        if class_name is None:
             print("** class name missing **")
             return
-        class_name = args[0]
         if class_name not in globals():
             print("** class doesn't exist **")
             return
-        new_instance = globals()[class_name]()
-        new_instance.save()
-        print(new_instance.id)
+        instance = globals()[class_name](*args, **kwargs)
+        instance.save()
+        print(instance.id)
 
-    def do_show(self, args):
-        """Prints the string representation of an instance based on the class
-        name and id.
-        """
-        args = args.split()
-        if len(args) == 0:
+    def show(class_name, id):
+        if class_name is None:
             print("** class name missing **")
             return
-        class_name = args[0]
         if class_name not in globals():
             print("** class doesn't exist **")
             return
-        if len(args) == 1:
+        if id is None:
             print("** instance id missing **")
             return
-        instance_id = args[1]
-        filename = "{}.json".format(class_name)
-        if not os.path.isfile(filename):
+        instances = []
+        with open('file.json') as f:
+            instances = json.load(f)
+        instance = [
+            instance
+            for instance in instances
+            if instance['id'] == id
+        ]
+        if not instance:
             print("** no instance found **")
             return
-        with open(filename, "r") as f:
-            instances = f.readlines()
-        found = False
-        for instance in instances:
-            instance = json.loads(instance)
-            if instance['id'] == instance_id:
-                print(instance)
-                found = True
-                break
-        if not found:
-            print("** no instance found **")
+        print(globals()[class_name](**instance[0]))
 
-    def do_destroy(self, args):
-        """Deletes an instance based on the class name and id (save the change
-        into the JSON file).
-        """
-        args = args.split()
-        if len(args) == 0:
+    def destroy(class_name, id):
+        if class_name is None:
             print("** class name missing **")
             return
-        class_name = args[0]
-        if class_name not in self.classes:
-            print("** class doesn't exist ")
+        if class_name not in globals():
+            print("** class doesn't exist **")
             return
-        if len(args) == 1:
-            print(" instance id missing ")
+        if id is None:
+            print("** instance id missing **")
             return
-        instance_id = args[1]
-        file_name = class_name + "." + instance_id + ".json"
-        if not os.path.exists(file_name):
-            print(" no instance found **")
-            return
-        os.remove(file_name)
+        instances = []
+        with open('file.json') as f:
+            instances = json.load(f)
+        instances = [
+            instance
+            for instance in instances
+            if instance['id'] != id
+        ]
+        with open('file.json', 'w') as f:
+            f.write(json.dumps(instances))
+
+    def all(class_name=None):
+        instances = []
+        with open('file.json') as f:
+            instances = json.load(f)
+        if class_name is not None:
+            if class_name not in globals():
+                print("** class doesn't exist **")
+                return
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
