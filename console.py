@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""
+console for the module
+"""
+
 import cmd
 
 class HBNBCommand(cmd.Cmd):
