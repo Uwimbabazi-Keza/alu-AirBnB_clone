@@ -3,10 +3,10 @@ import unittest
 from models.base_model import BaseModel
 
 class testBasemodel(unittest.TestCase):
-"""checks every property of an instance"""
+        """checks every property of an instance"""
 	
-	model = BaseModel()
-	def test_instance(self):
+        model = BaseModel()
+        def test_instance(self):
 		
                 self.model.name = "first model"
                 self.model.number = 1
