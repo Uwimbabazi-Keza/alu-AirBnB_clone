@@ -5,6 +5,8 @@ console for the module
 
 import cmd
 import json
+from models.base_model import BaseModel
+import models
 import uuid
 import os.path
 from datetime import datetime
