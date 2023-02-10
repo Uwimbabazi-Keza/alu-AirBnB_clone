@@ -9,7 +9,7 @@ from models.base_model import BaseModel
 # from models.user import User
 
 class FileStorage:
-    FILE_PATH = "file.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self) -> dict:
@@ -21,13 +21,13 @@ class FileStorage:
 
     def save(self):
         json_objects = {key: obj.to_dict() for key, obj in self.__objects.items()}
-        with open(self.FILE_PATH, "w") as f:
+        with open(self.__file_path, "w") as f:
             json.dump(json_objects, f)
 
     def reload(self):
         try:
-            with open(self.FILE_PATH, "r", encoding="UTF8") as f:
+            with open(self.__file_path, "r", encoding="UTF8") as f:
                 data = json.load(f)
-                self._objects = {key: eval(value["__class_"])(**value) for key, value in data.items()}
+                self._objects = {key: eval(value["__class__"])(**value) for key, value in data.items()}
         except FileNotFoundError:
             pass
