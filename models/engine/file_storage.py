@@ -1,13 +1,5 @@
 #!/usr/bin/python3
 import json
-import models
-from models.base_model import BaseModel
-from models.amenity import Amenity
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
 
 class FileStorage:
     __file_path = "file.json"
@@ -26,6 +18,14 @@ class FileStorage:
             json.dump(json_objects, file)
 
     def reload(self):
+
+        from models.base_model import BaseModel
+        from models.amenity import Amenity
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
         try:
             with open(self.__file_path, "r", encoding="UTF8") as file:
                 data = json.load(file)
