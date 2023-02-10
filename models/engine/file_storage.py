@@ -13,10 +13,10 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self) -> dict:
+    def all(self):
         return self.__objects
 
-    def new(self, obj: BaseModel):
+    def new(self, obj):
         key = obj.__class__.__name__+ "." + str(obj.id)
         self.__objects[key] = obj
 
@@ -28,7 +28,7 @@ class FileStorage:
     def reload(self):
         try:
             with open(self.__file_path, "r", encoding="UTF8") as file:
-                data = json.load(file)i
+                data = json.load(file)
                 self._objects = {key: eval(value["__class__"])(**value) for key, value in data.items()}
         except FileNotFoundError:
             pass
