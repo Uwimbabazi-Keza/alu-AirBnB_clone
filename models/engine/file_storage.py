@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import json
+import models
 from models.base_model import BaseModel
 # from models.amenity import Amenity
 # from models.city import City
@@ -16,7 +17,7 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj: BaseModel):
-        key = obj._class.__name_ + "." + str(obj.id)
+        key = obj.__class__.__name__+ "." + str(obj.id)
         self.__objects[key] = obj
 
     def save(self):
