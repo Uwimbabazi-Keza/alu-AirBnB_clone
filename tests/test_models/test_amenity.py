@@ -12,8 +12,8 @@ class test_amenity(unittest.TestCase):
         self.assertEqual(amenity.name, "amenity")
         self.assertEqual(
             str(type(amenity)), "<class 'models.amenity.Amenity'>")
-        self.assertTrue(self.amen, 'created_at')
-        self.assertTrue(self.amen, 'updated_at')
+        self.assertTrue(self.amenity, 'created_at')
+        self.assertTrue(self.amenity, 'updated_at')
 
 if __name__ == "__main__":
     unittest.main()i
